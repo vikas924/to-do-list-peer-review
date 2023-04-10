@@ -27,12 +27,11 @@ export function outclick() {
     const label = document.querySelectorAll('.listlabel');
     const icon = document.querySelectorAll('.jvicon');
     const hide = document.querySelectorAll('.hide');
+    const div = document.querySelectorAll('#style');
     const index = Array.from(label).indexOf(this);
     hide[index].removeEventListener('click', remove);
     if (event.target !== this) {
       const inputvalue = this.value;
-      const index = Array.from(label).indexOf(this);
-      const div = document.querySelectorAll('#style');
       label[index].value = inputvalue;
       tasks[index].description = label[index].value;
       localStorage.setItem('array', JSON.stringify(tasks));
@@ -43,8 +42,6 @@ export function outclick() {
       list.removeEventListener('click', listner);
       setTimeout(hide[index].addEventListener('click', remove), 2000);
     } else if (event.target === this) {
-      const index = Array.from(label).indexOf(this);
-      const div = document.querySelectorAll('#style');
       div[index].style.backgroundColor = 'red';
       this.style.backgroundColor = 'red';
       icon[index].style.display = 'none';
