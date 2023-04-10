@@ -2,8 +2,8 @@ export const tasks = JSON.parse(localStorage.getItem('array')) || [];
 
 export const add = () => {
   const input = document.querySelector('.addinput');
-  const value1 = input.value.trim();
-  if ((value1.length !== 0)) {
+  const removespaces = input.value.trim();
+  if ((removespaces.length !== 0)) {
     const obj = {
       description: `${input.value}`,
       completed: false,

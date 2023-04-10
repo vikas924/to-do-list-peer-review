@@ -12,13 +12,15 @@ import {
 
 function removecompleted() {
   const completedarray = tasks.filter((tasks) => tasks.completed === true);
-  for (let i = 0; i < completedarray.length; i += 1) {
-    const index = (completedarray[i].index - 1) - i;
-    tasks.splice(index, 1);
-  }
-  for (let i = 0; i < tasks.length; i += 1) {
-    tasks[i].index = i + 1;
-  }
+  completedarray.forEach((completed, index) => {
+    const indx = (completed.index - 1) - index;
+    tasks.splice(indx, 1);
+  });
+
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+
   localStorage.setItem('array', JSON.stringify(tasks));
 }
 
@@ -32,12 +34,15 @@ const displaytasks = () => {
   for (let i = 0; i < tasks.length; i += 1) {
     const icon = document.querySelectorAll('.jvicon');
     const hide = document.querySelectorAll('.hide');
-    hide[i].addEventListener('click', remove);
     const input = document.querySelectorAll('.listlabel');
-    input[i].addEventListener('keyup', edit);
-    input[i].addEventListener('click', outclick);
     const checkbox = document.querySelectorAll('.check');
     checkbox[i].addEventListener('click', status);
+    const button = document.querySelector('.button');
+    button.addEventListener('click', removecompleted);
+    button.addEventListener('click', displaytasks);
+    hide[i].addEventListener('click', remove);
+    input[i].addEventListener('keyup', edit);
+    input[i].addEventListener('click', outclick);
     if (tasks[i].completed === true) {
       input[i].style.textDecoration = 'line-through';
       input[i].style.color = 'rgba(139, 134, 134, 0.8)';
@@ -54,9 +59,6 @@ const displaytasks = () => {
       checkbox[i].checked = false;
     }
   }
-  const button = document.querySelector('.button');
-  button.addEventListener('click', removecompleted);
-  button.addEventListener('click', displaytasks);
 };
 
 const addbutton = document.querySelector('.spanicon');
